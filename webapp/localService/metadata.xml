@@ -1,0 +1,57 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:sap="http://www.sap.com/Protocols/SAPData"
+	xmlns:ux="http://www.sap.com/Protocols/OData4SAP/UX" xmlns:gp="http://www.sap.com/Protocols/SAPData/GenericPlayer" Version="1.0">
+	<edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZWMS_UPL_TOCON_DELIVERY_SRV" sap:schema-version="1" xml:lang="en">
+			<EntityType Name="HEADERDO" sap:content-version="1">
+				<Key><PropertyRef Name="DONUMBER"/><PropertyRef Name="WHNUMBER"/></Key><Property Name="DONUMBER" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false"/><Property Name="WHNUMBER" Type="Edm.String" Nullable="false" MaxLength="3" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false"/><NavigationProperty Name="NAVHEADERDOTOITEMDO" Relationship="ZWMS_UPL_TOCON_DELIVERY_SRV.HEADERDOTOITEMDO"
+					FromRole="FromRole_HEADERDOTOITEMDO" ToRole="ToRole_HEADERDOTOITEMDO"/><NavigationProperty Name="NAVHEADERDOTODODETAILS" Relationship="ZWMS_UPL_TOCON_DELIVERY_SRV.HEADERDOTODODETAILS"
+					FromRole="FromRole_HEADERDOTODODETAILS" ToRole="ToRole_HEADERDOTODODETAILS"/></EntityType>
+			<EntityType Name="DODETAILS" sap:content-version="1">
+				<Key><PropertyRef Name="DONUMBER"/><PropertyRef Name="WHNUMBER"/></Key><Property Name="DONUMBER" Type="Edm.String" Nullable="false" MaxLength="13" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false"/><Property Name="WHNUMBER" Type="Edm.String" Nullable="false" MaxLength="3" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false"/><Property Name="TOITEMNUMBER" Type="Edm.String" Nullable="false" MaxLength="4" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="MATERIAL" Type="Edm.String" Nullable="false" MaxLength="18" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false"/><Property Name="BATCH" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false"/><Property Name="QUANTITY" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false"/><Property Name="INDICATOR" Type="Edm.String" Nullable="false" MaxLength="1" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false"/><Property Name="TONUMBER" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false"/></EntityType>
+			<EntityType Name="ITEMDO" sap:content-version="1">
+				<Key><PropertyRef Name="WHNUMBER"/></Key><Property Name="TONUMBER" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false"/><Property Name="WHNUMBER" Type="Edm.String" Nullable="false" MaxLength="3" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false"/></EntityType>
+			<EntityType Name="FIELDCHECK" sap:content-version="1">
+				<Key><PropertyRef Name="DONUMBER"/><PropertyRef Name="WHNUMBER"/></Key><Property Name="DONUMBER" Type="Edm.String" Nullable="false" MaxLength="18" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false" sap:label="Delivery Order"/><Property Name="WHNUMBER" Type="Edm.String" Nullable="false" MaxLength="3" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false" sap:label="Warehouse"/><Property Name="ERROR_INDICATOR" Type="Edm.String" Nullable="false" MaxLength="1" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" sap:label="Error Indicator"/><Property Name="ERROR_TYPE" Type="Edm.String" Nullable="false" MaxLength="3" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false" sap:label="Field Error"/><Property Name="MESSAGE" Type="Edm.String" Nullable="false" MaxLength="200" sap:creatable="false" sap:updatable="false" sap:sortable="false"
+					sap:filterable="false" sap:label="Message"/></EntityType>
+			<Association Name="HEADERDOTODODETAILS" sap:content-version="1"><End Type="ZWMS_UPL_TOCON_DELIVERY_SRV.HEADERDO" Multiplicity="1" Role="FromRole_HEADERDOTODODETAILS"/><End Type="ZWMS_UPL_TOCON_DELIVERY_SRV.DODETAILS" Multiplicity="*" Role="ToRole_HEADERDOTODODETAILS"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_HEADERDOTODODETAILS"><PropertyRef Name="DONUMBER"/><PropertyRef Name="WHNUMBER"/></Principal>
+					<Dependent Role="ToRole_HEADERDOTODODETAILS"><PropertyRef Name="DONUMBER"/><PropertyRef Name="WHNUMBER"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="HEADERDOTOITEMDO" sap:content-version="1"><End Type="ZWMS_UPL_TOCON_DELIVERY_SRV.HEADERDO" Multiplicity="1" Role="FromRole_HEADERDOTOITEMDO"/><End Type="ZWMS_UPL_TOCON_DELIVERY_SRV.ITEMDO" Multiplicity="*" Role="ToRole_HEADERDOTOITEMDO"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_HEADERDOTOITEMDO"><PropertyRef Name="DONUMBER"/><PropertyRef Name="WHNUMBER"/></Principal>
+					<Dependent Role="ToRole_HEADERDOTOITEMDO"><PropertyRef Name="TONUMBER"/><PropertyRef Name="WHNUMBER"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="ZWMS_UPL_TOCON_DELIVERY_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="HEADERDOSet" EntityType="ZWMS_UPL_TOCON_DELIVERY_SRV.HEADERDO" sap:content-version="1" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false"/><EntitySet Name="DODETAILSSet" EntityType="ZWMS_UPL_TOCON_DELIVERY_SRV.DODETAILS" sap:content-version="1" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false"/><EntitySet Name="ITEMDOSet" EntityType="ZWMS_UPL_TOCON_DELIVERY_SRV.ITEMDO" sap:content-version="1" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false"/><EntitySet Name="FIELDCHECKSet" EntityType="ZWMS_UPL_TOCON_DELIVERY_SRV.FIELDCHECK" sap:content-version="1" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false"/>
+				<AssociationSet Name="HEADERDOTODODETAILSSet" Association="ZWMS_UPL_TOCON_DELIVERY_SRV.HEADERDOTODODETAILS" deletable="false"
+					creatable="false" updatable="false"><End EntitySet="HEADERDOSet" Role="FromRole_HEADERDOTODODETAILS"/><End EntitySet="DODETAILSSet" Role="ToRole_HEADERDOTODODETAILS"/></AssociationSet>
+				<AssociationSet Name="HEADERDOTOITEMDOSet" Association="ZWMS_UPL_TOCON_DELIVERY_SRV.HEADERDOTOITEMDO" deletable="false" creatable="false"
+					updatable="false"><End EntitySet="HEADERDOSet" Role="FromRole_HEADERDOTOITEMDO"/><End EntitySet="ITEMDOSet" Role="ToRole_HEADERDOTOITEMDO"/></AssociationSet>
+			</EntityContainer><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self"
+				href="https://gwaas-ae7888026.hana.ondemand.com:443/odata/SAP/ZWMS_UPL_TOCON_DELIVERY_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version"
+				href="https://gwaas-ae7888026.hana.ondemand.com:443/odata/SAP/ZWMS_UPL_TOCON_DELIVERY_SRV/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
